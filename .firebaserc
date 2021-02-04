@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "employee-mgmt-app": {
+      "hosting": {
+        "employee-mgmt-app": [
+          "employee-mgmt-app"
+        ]
+      }
+    }
+  }
+}

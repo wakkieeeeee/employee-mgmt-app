@@ -1,0 +1,23 @@
+<div class="container w-25">
+  <div class="border bg-light text-muted mt-5 mrl-8 p-3">
+    <form #form="ngForm" (ngSubmit)="submit(form)">
+      <h2 class="heading text-center">User Registration</h2>
+      <div class="form-group">
+        <!-- ngModelはFormタグの中で使っているので、特に括弧は必要なし -->
+        <label for="text3">Email: </label>
+        <input ngModel type="email" name="email" class="form-control" placeholder="メールアドレスを入力" required autofocus>
+      </div>
+      <label for="text1">First Name: </label>
+      <div class="form-group ml-2 mr-2">
+        <input ngModel type="text" name="firstName" id="text1" class="form-control" placeholder="姓">
+      </div>
+      <label for="text2">Last Name: </label>
+      <div class="form-group ml-2 mr-2">
+        <input ngModel type="text" name="lastName" id="text2" class="form-control" placeholder="名">
+      </div>
+      <div class="text-right mr-2">
+        <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="container w-50">
+  <div class="border bg-light text-muted mt-5 mrl-8 p-3">
+    <form #form="ngForm" (ngSubmit)="submit(form)">
+      <h2 class="heading text-center">Signup Account</h2>
+      <div class="form-group">
+        <!-- ngModelはFormタグの中で使っているので、特に括弧は必要なし -->
+        <label for="text3">Email: </label>
+        <input ngModel type="email" name="email" class="form-control" placeholder="Enter your email address" required autofocus>
+      </div>
+      <label for="text1">Password: </label>
+      <div class="form-group ml-2 mr-2">
+        <input ngModel type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+      </div>
+      <div class="form-group ml-2 mr-2">
+        <input ngModel type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Re-Enter your password for confirmation">
+      </div>
+      <div class="form-group ml-2 mr-2">
+        <p *ngIf="isPasswordError">{{ passwordConfirmationError }}</p>
+      </div>
+      <label for="text1">First Name: </label>
+      <div class="form-group ml-2 mr-2">
+        <input ngModel type="text" name="firstName" id="firstName" class="form-control" placeholder="Enter your first name">
+      </div>
+      <label for="text1">Last Name: </label>
+      <div class="form-group ml-2 mr-2">
+        <input ngModel type="text" name="lastName" id="lastName" class="form-control" placeholder="Enter your last name">
+      </div>
+      <div class="text-right mr-2">
+        <button class="btn btn-lg btn-primary" type="submit">Signup</button>
+      </div>
+    </form>
+    <a routerLink="/login" class="signup-link">Login here</a>
+  </div>
+</div>
