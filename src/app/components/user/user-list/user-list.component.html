@@ -3,6 +3,12 @@
   <!-- <main *ngIf="isLogin; else [routerlink]='/login'"> -->
     <section class="mw-95 py-5">
        <h2 class="mb-5 ml-2">Employee List</h2>
+       <mat-paginator [length]="length"
+              [pageSize]="perPage"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="getPaginatorData($event)"
+        >
+       </mat-paginator>
        <table class="table table-hover table-md ml-3 mr-3">
           <thead class="thead-light">
              <tr>

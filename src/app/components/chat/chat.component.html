@@ -1,0 +1,52 @@
+<mat-card class="m-2 p-2">
+  <div class="d-flex">
+    <div class="my-box w-25 border border-light rounded">
+      <div class="d-flex bg-secondary text-light">
+        <mat-icon class="mt-4 ml-3" aria-hidden="false" aria-label="account_circle">account_circle</mat-icon>
+        <h2 class="mt-4 ml-3 font-weight-bold">Contacts</h2>
+      </div>
+      <mat-selection-list #users2 [multiple]="false">
+        <mat-list-option *ngFor="let user of users | async" [value]="user.firstName">
+          {{user.firstName}}.{{ user.lastName }}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <p class="mt-4 ml-3">
+        Option selected: {{users2.selectedOptions.selected[0]?.value}}
+      </p>
+    </div>
+    <div class="my-box w-75">
+      <section class="chat">
+        <div class="chat-timeline">
+          <div
+            *ngFor="let comment of comments$ | async"
+            class="list-group-item list-group-item-action flex-column align-items-start border-0 mt-3 mr-3"
+          >
+            <div class="media">
+              <div class="media-left">
+                <a href="#" class="icon">a</a>
+              </div>
+              <div class="media-body">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="media-heading">{{ comment.user }}</h4>
+                  <small class="media-date">{{ comment.date }}</small>
+                </div>
+                <pre>{{ comment.message }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="chat-editor">
+        <form class="chat-form">
+          <div class="form-group mt-5">
+            <textarea [(ngModel)]="comment" name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="btn btn-info" tabindex="2" (click)="addComment(comment)">Submit</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</mat-card>

@@ -23,6 +23,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ChatComponent } from './components/chat/chat.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatList, MatListModule} from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +40,8 @@ import { MatInputModule } from '@angular/material/input';
     LoginComponent,
     LogoutComponent,
     SignupComponent,
-    SignupConfirmationComponent
+    SignupConfirmationComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,11 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

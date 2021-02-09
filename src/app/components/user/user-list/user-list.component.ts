@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-list',
@@ -15,6 +16,15 @@ export class UserListComponent implements OnInit {
 
   usersRef: AngularFireList<User>
   users$: Observable<User[]>;
+
+  length: number;
+  pageIndex: number = 0;
+  perPage: number = 50;
+  lowValue: number = 0;
+  highValue: number = 50;
+
+  pageEvent: MatPaginator;
+
 
   constructor(
     private db: AngularFireDatabase,
@@ -35,6 +45,8 @@ export class UserListComponent implements OnInit {
           });
         })
       );
+
+    this.getDataSize();
   }
 
   deleteUser(user : User): void {
@@ -46,5 +58,23 @@ export class UserListComponent implements OnInit {
       alert('The user was not deleted.');
     }
   }
+
+  // For pagination with Google MatPaginator
+  public getPaginatorData(event) {
+    this.lowValue = event.pageIndex * event.pageSize;
+    this.highValue = this.lowValue + event.pageSize;
+    return event;
+  }
+
+  // For getting length of the data stored in Realtime Database
+  getDataSize() {
+    this.db.list('/users').valueChanges().subscribe(
+      values => {
+        console.log('The total volume of data is ' + values.length);
+        this.length = values.length;
+      }
+    )
+  }
+
 
 }

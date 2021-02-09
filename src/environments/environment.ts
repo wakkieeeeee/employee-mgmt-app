@@ -7,6 +7,7 @@ export const environment = {
   firebase: {
     apiKey: "AIzaSyBp7zzGKMv2L_-HOJjdSyTpAbmchRwAP64",
     authDomain: "employee-mgmt-app.firebaseapp.com",
+    databaseURL: "https://employee-mgmt-app-default-rtdb.firebaseio.com",
     projectId: "employee-mgmt-app",
     storageBucket: "employee-mgmt-app.appspot.com",
     messagingSenderId: "840236868886",

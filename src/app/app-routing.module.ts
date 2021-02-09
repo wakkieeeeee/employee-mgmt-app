@@ -9,6 +9,7 @@ import { SignupConfirmationComponent } from './components/signup-confirmation/si
 import { AuthGuard } from './guards/auth.guard';
 import { Auth2Guard } from './guards/auth2.guard';
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   // { path: '', component: UserListComponent, canActivate: [Auth2Guard]}
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
   { path: 'signup-confirmation', component: SignupConfirmationComponent },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'logout', component: LogoutComponent }
+  { path: 'logout', component: LogoutComponent },
+  { path: 'chat', component: ChatComponent }
 ];
 
 @NgModule({

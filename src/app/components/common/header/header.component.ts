@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @Component({
@@ -13,9 +16,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class HeaderComponent implements OnInit {
 
   isLogin: boolean;
+  user$: Observable<User>;
+  firstName: string;
 
   constructor(
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
+    private db: AngularFireDatabase,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
     public dialog: MatDialog,
@@ -25,6 +32,10 @@ export class HeaderComponent implements OnInit {
     this.afAuth.onAuthStateChanged((user) => {
       console.log('This is the ngOnInit() in headerComponent', user);
       this.isLogin = !!user
+    })
+
+    this.afAuth.currentUser.then(values => {
+      console.log('displayName: ', values);
     })
   }
 

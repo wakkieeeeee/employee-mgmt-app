@@ -18,11 +18,17 @@
         <li class="nav-item">
           <a *ngIf="!isLogin" class="nav-link" routerLink="/login">Login</a>
         </li>
+        <li class="nav-item">
+          <a *ngIf="isLogin" class="nav-link" routerLink="/chat">Chat</a>
+        </li>
       </ul>
       <form *ngIf="isLogin" class="form-inline d-flex justify-content-end ml-2">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success ml-2" type="submit">Search</button>
       </form>
+      <!-- <div *ngIf="afAuth.user | async as user">
+        <p>{{ user.displayName }}</p>
+      </div> -->
     </div>
     <button *ngIf="isLogin" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>
