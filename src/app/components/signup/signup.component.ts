@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
   }
 
   submit(form: NgForm): void {
-    const { email, password, confirmPassword, firstName, lastName } = form.value;
+    const { email, password, confirmPassword, firstName, lastName, displayName} = form.value;
 
     const checkResult = this.customValidatorService.matchPasswordCheck(password, confirmPassword);
     this.passwordConfirmationError = checkResult.a;
@@ -33,7 +33,7 @@ export class SignupComponent implements OnInit {
     if (this.isPasswordError===true) {
       console.log('isPasswordError flag is on');
     } else {
-      this.userService.createUser(email, password, firstName, lastName)
+      this.userService.createUser(email, password, firstName, lastName, displayName)
         .then(() => this.router.navigateByUrl('/signup-confirmation'));
     }
 

@@ -1,40 +1,58 @@
-<main>
-<!-- <main *ngIf="isLogin"> -->
-  <!-- <main *ngIf="isLogin; else [routerlink]='/login'"> -->
-    <section class="mw-95 py-5">
-       <h2 class="mb-5 ml-2">Employee List</h2>
-       <mat-paginator [length]="length"
-              [pageSize]="perPage"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              (page)="getPaginatorData($event)"
-        >
-       </mat-paginator>
-       <table class="table table-hover table-md ml-3 mr-3">
-          <thead class="thead-light">
-             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Email</th>
-                <th scope="col">UID</th>
-                <th scope="col">Delete</th>
-                <th scope="col">Edit</th>
-             </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of users$ | async; index as i">
-             <!-- <tr *ngFor="let user of users$ | async; index as i"> -->
-                <!-- <th scope="row">{{ i+1 }}</th> -->
-                <th scope="row">{{ i+1 }}</th>
-                <td> {{ user.firstName }} </td>
-                <td> {{ user.lastName }} </td>
-                <td> {{ user.email }} </td>
-                <td> {{ user.uid }} </td>
-                <td><button type="button" class="btn btn-warning" (click)="deleteUser(user)">Delete</button></td>
-                <!-- データバインディング型であつかうことで操作しやすくなる -->
-                <td><button [routerLink]="['users', user.uid]" type="button" class="btn btn-warning">Edit</button></td>
-             </tr>
-          </tbody>
-       </table>
-    </section>
-  </main>
+<div class="container-fluid">
+  <main>
+    <!-- <main *ngIf="isLogin"> -->
+      <!-- <main *ngIf="isLogin; else [routerlink]='/login'"> -->
+        <section class="mw-100 py-3">
+           <h2 class="mb-5 ml-2">Employee List</h2>
+            <form class="form-inline w-50 ml-4" ng-submit="search()" name="myForm">
+              <!-- <input #searchBox id="search-box" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" (input)="search(searchBox.value)"> -->
+              <input #searchBox id="search-box" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success ml-2" type="submit" ng-disabled="myForm.$invalid">Search</button>
+            </form>
+           <mat-paginator [length]="length"
+                  [pageSize]="perPage"
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  (page)="getPaginatorData($event)"
+            >
+           </mat-paginator>
+           <table class="table table-hover table-md ml-3 mr-3">
+              <thead class="thead-light">
+                 <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">UID</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">Edit</th>
+                 </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users$ | async; index as i">
+                 <!-- <tr *ngFor="let user of users$ | async; index as i"> -->
+                    <!-- <th scope="row">{{ i+1 }}</th> -->
+                    <th scope="row">{{ i+1 }}</th>
+                    <td> {{ user.firstName }} </td>
+                    <td> {{ user.lastName }} </td>
+                    <td> {{ user.email }} </td>
+                    <td> {{ user.uid }} </td>
+                    <td><button type="button" class="btn btn-warning" (click)="deleteUser(user)">Delete</button></td>
+                    <!-- データバインディング型であつかうことで操作しやすくなる -->
+                    <td><button [routerLink]="['users', user.uid]" type="button" class="btn btn-warning">Edit</button></td>
+                 </tr>
+              </tbody>
+              <!-- <tbody>
+                <tr *ngFor="let searchMember of searchMember$ | async; index as i">
+                    <th scope="row">{{ i+1 }}</th>
+                    <td> {{ searchMember.firstName }} </td>
+                    <td> {{ searchMember.lastName }} </td>
+                    <td> {{ searchMember.email }} </td>
+                    <td> {{ searchMember.uid }} </td>
+                    <td><button type="button" class="btn btn-warning" (click)="deleteUser(searchMember)">Delete</button></td>
+                    <td><button [routerLink]="['users', searchMember.uid]" type="button" class="btn btn-warning">Edit</button></td>
+                 </tr>
+              </tbody> -->
+           </table>
+        </section>
+      </main>
+</div>

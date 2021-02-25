@@ -28,6 +28,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ChatComponent } from './components/chat/chat.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatList, MatListModule} from '@angular/material/list';
+import { NewsSiteComponent } from './components/news-site/news-site.component';
+import { TempPageComponent } from './components/temp-page/temp-page.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -41,12 +44,15 @@ import {MatList, MatListModule} from '@angular/material/list';
     LogoutComponent,
     SignupComponent,
     SignupConfirmationComponent,
-    ChatComponent
+    ChatComponent,
+    NewsSiteComponent,
+    TempPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     // FormControl,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

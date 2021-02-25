@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { AuthUser } from '../../../models/auth-user';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -18,6 +20,8 @@ export class HeaderComponent implements OnInit {
   isLogin: boolean;
   user$: Observable<User>;
   firstName: string;
+  currentUser$: Observable<User>;
+  currentUser: AuthUser;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -34,9 +38,18 @@ export class HeaderComponent implements OnInit {
       this.isLogin = !!user
     })
 
-    this.afAuth.currentUser.then(values => {
-      console.log('displayName: ', values);
-    })
+    this.currentUser$ = this.afAuth.authState.pipe(
+      map((user: firebase.default.User | null) => {
+        if (user) {
+          this.currentUser = new AuthUser(user);
+          return this.currentUser;
+        }
+        return null;
+      })
+    );
+    // this.afAuth.authState.pipe(values => {
+    //   console.log('displayName: ', values);
+    // })
   }
 
   openDialog() {
@@ -61,17 +74,49 @@ export class DialogElementsExampleDialog {
     private dialog: MatDialog,
     private authService: AuthService,
     private router: Router,
+    private afAuth: AngularFireAuth,
   ) {}
 
   closeDialog() {
     this.dialog.closeAll();
   }
 
+  // async closeDialogP(): Promise<void> {
+  //   this.dialog.closeAll();
+  // }
+
+  // async authLogoutP(): Promise<void> {
+  //   this.authService.logout();
+  // }
+
+  // async navigateByUrlP(): Promise<void> {
+  //   this.router.navigateByUrl('/login');
+  // }
+
   logout() {
-    this.router.navigateByUrl('/');
     this.authService.logout();
       // .then(() => this.closeDialog())
       // .finally(() => this.router.navigateByUrl('/'));
     this.closeDialog();
+    this.router.navigateByUrl('/login');
   }
+
+  logoutP(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.authService.logout();
+      this.closeDialog();
+    }).then(value => {
+      if (!this.afAuth.user)
+      this.router.navigateByUrl('/login');
+    }).catch(err => {
+      console.error(err);
+    });
+
+  }    //   this.authLogoutP();
+  //   this.closeDialogP();
+  //   this.navigateByUrlP();
+  //   }
+
+
+
 }

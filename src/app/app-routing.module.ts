@@ -10,6 +10,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { Auth2Guard } from './guards/auth2.guard';
 import { UserDetailComponent } from './components/user/user-detail/user-detail.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { NewsSiteComponent } from './components/news-site/news-site.component';
+import { TempPageComponent } from './components/temp-page/temp-page.component';
 
 const routes: Routes = [
   // { path: '', component: UserListComponent, canActivate: [Auth2Guard]}
@@ -22,7 +24,9 @@ const routes: Routes = [
   { path: 'signup-confirmation', component: SignupConfirmationComponent },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'logout', component: LogoutComponent },
-  { path: 'chat', component: ChatComponent }
+  { path: 'chat', component: ChatComponent },
+  { path: 'news', component: NewsSiteComponent },
+  { path: 'temp-page', component: TempPageComponent },
 ];
 
 @NgModule({

@@ -24,7 +24,7 @@ export class UserRegisterComponent implements OnInit {
 
     const { email, firstName, lastName } = form.value;
     const uid: string = undefined;
-    const user: User = { email, firstName, lastName, uid };
+    // const user: User = { email, firstName, lastName, uid };
 
     // this.userService.createUser(user);
     this.router.navigateByUrl('/');

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AngularFireDatabase, AngularFireList, SnapshotAction } from '@angular/fire/database';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,8 +14,9 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class UserListComponent implements OnInit {
 
-  usersRef: AngularFireList<User>
+  usersRef: AngularFireList<User>;
   users$: Observable<User[]>;
+  searchUsers$: Observable<User[]>;
 
   length: number;
   pageIndex: number = 0;
@@ -25,6 +26,8 @@ export class UserListComponent implements OnInit {
 
   pageEvent: MatPaginator;
 
+  private searchTerm = new Subject<string>();
+
 
   constructor(
     private db: AngularFireDatabase,
@@ -32,6 +35,10 @@ export class UserListComponent implements OnInit {
     private router: Router,
   ) {
     this.usersRef = db.list('/users');
+  }
+
+  search(term: string): void {
+    this.searchTerm.next(term);
   }
 
   ngOnInit(): void {
@@ -47,6 +54,12 @@ export class UserListComponent implements OnInit {
       );
 
     this.getDataSize();
+
+    // this.searchUsers$ = this.searchTerm.pipe(
+    //   debounceTime(300),
+    //   distinctUntilChanged(),
+    //   switchMap((term: string) => this.userService.searchUsers(term));
+    // )
   }
 
   deleteUser(user : User): void {
@@ -75,6 +88,8 @@ export class UserListComponent implements OnInit {
       }
     )
   }
+
+
 
 
 }
