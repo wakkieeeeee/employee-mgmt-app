@@ -14,6 +14,7 @@ export class TempPageComponent implements OnInit {
   private tempUrl = 'http://localhost:3000/api/v1';
 
   public param: any = {};
+  public articleParam: any = {};
 
   public messageInfo: any = {
     id: null,
@@ -21,10 +22,11 @@ export class TempPageComponent implements OnInit {
   };
 
   public messageInfoList: any = [this.messageInfo];
+  public articleList: any;
 
   public messageId: number = 1;
 
-  public message: string = '';
+  public message: string = 'Default Message';
 
   constructor(
     // private http: HttpClient,
@@ -47,9 +49,53 @@ export class TempPageComponent implements OnInit {
       .catch(
         (error) => console.log(error)
       );
+
+    this.httpClientService.articleGet()
+      .then((response) => {
+        // this.articleParam = response;
+        this.articleList = response;
+
+      })
   }
 
   // getPage() {
   //   return this.http.get(this.tempUrl);
   // }
+
+  public onClickRegister() {
+    const body: any = {
+      id: this.messageId,
+      message: this.message
+    };
+    this.httpClientService.register(body)
+      .then(
+        (response) => {
+          this.param = response;
+          this.messageInfoList = this.param.messages;
+        }
+      )
+      .catch(
+        (error) => console.log(error)
+      );
+  }
+
+  public onClickDelete() {
+    console.log('messageId: ', this.messageId);
+    console.log('message: ', this.message);
+    const body: any = {
+      id: this.messageId,
+      message: this.message
+    };
+
+    this.httpClientService.delete(body)
+    .then(
+      response => {
+        this.param = response;
+        this.messageInfoList = this.param.messages;
+      }
+    )
+    .catch(
+      (error) => console.log(error)
+    );
+  }
 }
